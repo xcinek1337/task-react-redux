@@ -1,23 +1,47 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
+import { v4 as uuidv4 } from 'uuid';
+
 import { saveMeetingAction } from './actions/calendar';
+import { saveMeetingInApi } from './providers/meetingsApi';
+import validateForm from './providers/validateForm';
 
 
-const CalendarForm = props => {
+const CalendarForm = () => {
 	const dispatch = useDispatch();
+
 	const [state, setState] = useState({
 		firstName: '',
 		lastName: '',
 		email: '',
 		date: '',
 		time: '',
+		id: '',
 		errors: [],
 	});
+
+	const isFieldNameCorrect = name => {
+		const fieldsData = getFieldsData();
+		console.log(typeof fieldsData[name] !== 'undefined');
+		return typeof fieldsData[name] !== 'undefined';
+	};
+
+	const handleFieldChange = e => {
+		if (isFieldNameCorrect(e.target.name)) {
+			setState({ ...state, [e.target.name]: e.target.value, id: uuidv4() });
+		}
+	};
+	
+	const getFieldsData = () => {
+		const fieldsData = { ...state };
+		delete fieldsData['errors'];
+		return fieldsData;
+	};
 
 	const handleSubmit = e => {
 		e.preventDefault();
 
-		const errors = validateForm();
+		const errors = validateForm(state);
 		setState({ ...state, errors });
 
 		if (errors.length === 0) {
@@ -26,92 +50,11 @@ const CalendarForm = props => {
 		}
 	};
 
-	const validateForm = () => {
-		const errors = [];
 
-		if (!isDateCorrect()) {
-			errors.push('Popraw wprowadzoną datę');
-		}
-
-		if (!isTimeCorrect()) {
-			errors.push('Popraw wprowadzoną godzinę');
-		}
-
-		if (!isFirstNameCorrect()) {
-			errors.push('Wprowadź imię');
-		}
-
-		if (!isLastNameCorrect()) {
-			errors.push('Wprowadź nazwisko');
-		}
-
-		if (!isEmailCorrect()) {
-			errors.push('Wprowadź poprawny adres email');
-		}
-
-		return errors;
-	};
-
-	const isDateCorrect = () => {
-		const pattern = /^[0-9]{4}-[0-9]{2}-[0-9]{2}$/;
-		return pattern.test(state.date);
-	};
-
-	const isTimeCorrect = () => {
-		const pattern = /^[0-9]{2}:[0-9]{2}$/;
-		return pattern.test(state.time);
-	};
-
-	const isFirstNameCorrect = () => {
-		return state.firstName.length > 0;
-	};
-
-	const isLastNameCorrect = () => {
-		return state.lastName.length > 0;
-	};
-
-	const isEmailCorrect = () => {
-		const pattern = /^[0-9a-zA-Z_.-]+@[0-9a-zA-Z.-]+\.[a-zA-Z]{2,3}$/;
-		return pattern.test(state.email);
-	};
-
-	const getFieldsData = () => {
-		const fieldsData = { ...state };
-		delete fieldsData['errors'];
-		return fieldsData;
-	};
-	const clearFormFields = () => {
-		const fieldsData = getFieldsData();
-		for (const prop in fieldsData) {
-			fieldsData[prop] = '';
-		}
-
-		setState(fieldsData);
-	};
-
-	const isFieldNameCorrect = name => {
-		const fieldsData = getFieldsData();
-		return typeof fieldsData[name] !== 'undefined';
-	};
-	const handleFieldChange = e => {
-		if (isFieldNameCorrect(e.target.name)) {
-			setState({ ...state, [e.target.name]: e.target.value });
-		}
-	};
-
-	const renderErrors = () => {
-		if (state.errors) {
-			return state.errors.map((err, index) => <li key={index}>{err}</li>);
-		}
-	};
 	const saveMeeting = () => {
-		const { saveMeeting } = props;
-	
-		// to nie dziala
-        dispatch(saveMeetingAction(getFieldsData()));
-		
-        // a to dziala
-        // saveMeeting(getFieldsData())
+		dispatch(saveMeetingAction(getFieldsData()));
+
+		saveMeetingInApi(getFieldsData());
 	};
 
 	return (
@@ -147,6 +90,21 @@ const CalendarForm = props => {
 			</div>
 		</form>
 	);
+
+	function renderErrors() {
+		if (state.errors) {
+			return state.errors.map((err, index) => <li key={index}>{err}</li>);
+		}
+	}
+
+	function clearFormFields() {
+		const fieldsData = getFieldsData();
+		for (const prop in fieldsData) {
+			fieldsData[prop] = '';
+		}
+
+		setState(fieldsData);
+	}
 };
 
 export default CalendarForm;
