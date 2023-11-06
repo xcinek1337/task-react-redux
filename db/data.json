@@ -9,20 +9,12 @@
       "time": "10:00"
     },
     {
-      "firstName": "Marcin",
-      "lastName": "Chodkowski",
-      "email": "xcinek1337@wp.pl",
-      "date": "2022-01-01",
-      "time": "10:00",
-      "id": "189f1958-311a-408a-b253-77f9aaa827e9"
-    },
-    {
-      "firstName": "Marcin",
-      "lastName": "Chodkowski",
-      "email": "marcinchodkowski004@wp.pl",
-      "date": "2022-01-01",
-      "time": "10:00",
-      "id": "64badc41-fa85-4437-9fd1-49ca7989f58c"
-    }
+			"date": "2022-01-01",
+			"email": "marcinchodkows04@wp.pl",
+			"firstName": "DDDAsdd",
+			"lastName": "asda",
+			"time": "10:00",
+			"id": "1dedab38-3031-4511-ad97-c9b3337cec88"
+		}
   ]
 }
