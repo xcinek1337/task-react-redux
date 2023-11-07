@@ -20,6 +20,7 @@ const Calendar = () => {
 
 	return (
 		<>
+		
 			<Navbar />
 			{meetings === undefined ? <p>Oczekiwanie na dane...</p> : null}
 			<main>

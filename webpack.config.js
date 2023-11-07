@@ -11,11 +11,13 @@ module.exports = {
 		filename: 'index.min.js',
 		// definiuję nazwę pliku wyjściowego
 	},
-
+	resolve: {
+		extensions: ['.js', '.jsx'],
+	},
 	module: {
 		rules: [
 			{
-				test: '/.(js|jsx)$/',
+				test: /\.(js|jsx)$/,
 				// określam jakie pliki
 				// będą brane pod uwagę
 				exclude: /node_modules/,
@@ -24,29 +26,12 @@ module.exports = {
 				// określam jaki [loader]
 				// ma być wykorzystany
 			},
-			{
-				test: /\.scss$/,
-				use: ['style-loader', 'css-loader', 'postcss-loader', 'sass-loader'],
-			},
-			{
-				test: /\.(png|svg|jpg|gif)$/,
-				// dodaję rozszerzenia obrazów
-				type: 'asset/resource',
-				generator: {
-					filename: 'images/[name][contenthash][ext]',
-					// ustawiam nazwę katalogu i pliku
-				},
-			},
-			{
-				test: /\.(ttf|otf|woff|woff2)$/,
-				// dodaję rozszerzenia obrazów
-				type: 'asset/resource',
-				generator: {
-					filename: 'fonts/[name][contenthash][ext]',
-					// ustawiam nazwę katalogu i pliku
-				},
-			},
+			// {
+			// 	test: /\.scss$/,
+			// 	use: ['style-loader', 'css-loader', 'postcss-loader', 'sass-loader'],
+			// },
 		],
+		// obecnie brak dodatkowych ustawień
 	},
 	plugins: [
 		new HtmlWebpackPlugin({
