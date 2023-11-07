@@ -1,4 +1,4 @@
-export const loadMeetingsAction = meetings => {
+const loadMeetingsAction = meetings => {
 	return {
 		type: 'loadMeetings',
 		payload: {
@@ -6,7 +6,7 @@ export const loadMeetingsAction = meetings => {
 		},
 	};
 };
-export const saveMeetingAction = meet => {
+const saveMeetingAction = meet => {
 	return {
 		type: 'saveMeeting',
 		payload: {
@@ -14,3 +14,15 @@ export const saveMeetingAction = meet => {
 		},
 	};
 };
+const setDoneMeetingAction = (updatedData, meetingId) => {
+	console.log(updatedData);
+	return {
+		type: 'setFlagToTrue',
+		payload: {
+			meetingId,
+			updatedData,
+		},
+	};
+};
+
+export { loadMeetingsAction, saveMeetingAction, setDoneMeetingAction };

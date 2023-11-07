@@ -1,20 +1,31 @@
 {
   "meetings": [
     {
-      "id": 1,
-      "firstName": "Jan",
-      "lastName": "Kowalski",
-      "email": "jan@kowalski.not",
       "date": "2022-01-01",
-      "time": "10:00"
+      "email": "marcinchodkowski004@wp.pl",
+      "firstName": "asd",
+      "lastName": "Chodkowski",
+      "time": "10:00",
+      "isDone": true,
+      "id": "aa08cba1-abf9-43fe-bbbf-db4df661076d"
     },
     {
-			"date": "2022-01-01",
-			"email": "marcinchodkows04@wp.pl",
-			"firstName": "DDDAsdd",
-			"lastName": "asda",
-			"time": "10:00",
-			"id": "1dedab38-3031-4511-ad97-c9b3337cec88"
-		}
+      "date": "2022-01-01",
+      "email": "marcinchodkowski004@wp.pl",
+      "firstName": "asd",
+      "lastName": "Chodkowski",
+      "time": "10:00",
+      "isDone": true,
+      "id": "783f727f-820a-4880-9862-2c87cf28cd9c"
+    },
+    {
+      "date": "2022-01-01",
+      "email": "marcinchodkowski004@wp.pl",
+      "firstName": "Marcin",
+      "lastName": "Chodkowski",
+      "time": "10:00",
+      "isDone": false,
+      "id": "9a9a3fc4-9183-4694-86ff-94b107a08d62"
+    }
   ]
 }

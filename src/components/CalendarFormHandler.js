@@ -3,10 +3,10 @@ import { v4 as uuidv4 } from 'uuid';
 import { useDispatch } from 'react-redux';
 
 import { saveMeetingAction } from './actions/calendar';
-import { saveMeetingInApi } from './providers/meetingsApi';
+import { saveMeetingAPI } from './providers/meetingsApi';
 
 const CalendarFormHandler = ({ fields }) => {
-	const init = { date: '', email: '', firstName: '', lastName: '', time: '' };
+	const init = { date: '', email: '', firstName: '', lastName: '', time: '', isDone: false };
 
 	const reduxDispatch = useDispatch();
 	const [state, dispatch] = useReducer(reducer, init);
@@ -25,19 +25,19 @@ const CalendarFormHandler = ({ fields }) => {
 		}
 	}
 
-	function handleSubmit(e) {
+	const handleSubmit = e => {
 		e.preventDefault();
 
 		const validationErrors = validate(fields, state);
 		if (validationErrors.length === 0) {
 			const newMeetingWithId = { ...state, id: uuidv4() };
 			reduxDispatch(saveMeetingAction(newMeetingWithId));
-			saveMeetingInApi(newMeetingWithId);
+			saveMeetingAPI(newMeetingWithId);
 
 			dispatch({ type: 'init', data: init });
 		}
-	}
-	function validate(state, values) {
+	};
+	const validate = (state, values) => {
 		const errors = [];
 
 		state.forEach(({ name, validation }) => {
@@ -51,8 +51,8 @@ const CalendarFormHandler = ({ fields }) => {
 		});
 		setErrors(errors);
 		return errors;
-	}
-	function renderErros() {
+	};
+	const renderErros = () => {
 		return (
 			<ul className='form__error-list'>
 				{errors.map((message, index) => (
@@ -62,9 +62,9 @@ const CalendarFormHandler = ({ fields }) => {
 				))}
 			</ul>
 		);
-	}
+	};
 
-	function renderFieldList() {
+	const renderFieldList = () => {
 		return fields.map(({ name, type, placeHolder }) => {
 			const value = state[name];
 
@@ -84,7 +84,7 @@ const CalendarFormHandler = ({ fields }) => {
 				</div>
 			);
 		});
-	}
+	};
 
 	return (
 		<form onSubmit={handleSubmit}>

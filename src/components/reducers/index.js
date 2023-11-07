@@ -14,6 +14,18 @@ const reducer = (state = initalState, action) => {
 				...state,
 				meetings: [...state.meetings, action.payload.meet],
 			};
+		case 'setFlagToTrue':
+			const { meetingId, updatedData } = action.payload;
+			const updatedMeetings = state.meetings.map(meeting => {
+				if (meeting.id === meetingId) {
+					return { ...meeting, ...updatedData };
+				}
+				return meeting;
+			});
+			return {
+				...state,
+				meetings: updatedMeetings,
+			};
 		default:
 			return state;
 	}

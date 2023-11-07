@@ -3,27 +3,29 @@ import { useSelector, useDispatch } from 'react-redux';
 
 import CalendarList from './CalendarList';
 import CalendarForm from './CalendarForm';
+import Navbar from './Navbar';
 
 import { loadMeetingsAction } from './actions/calendar';
-import { loadMeetingsToRedux } from './providers/meetingsApi';
+import { loadMeetingsAPI } from './providers/meetingsApi';
 
 const Calendar = () => {
 	const meetings = useSelector(state => state.meetings);
 	const dispatch = useDispatch();
 
 	useEffect(() => {
-		loadMeetingsToRedux().then(data => {
+		loadMeetingsAPI().then(data => {
 			dispatch(loadMeetingsAction(data));
 		});
 	}, []);
 
 	return (
 		<>
+			<Navbar />
 			{meetings === undefined ? <p>Oczekiwanie na dane...</p> : null}
-			<section>
+			<main>
 				<CalendarList />
 				<CalendarForm />
-			</section>
+			</main>
 		</>
 	);
 };
