@@ -1,5 +1,6 @@
 const initalState = {
 	meetings: [],
+	isPopupOpen: false,
 };
 
 const reducer = (state = initalState, action) => {
@@ -25,6 +26,11 @@ const reducer = (state = initalState, action) => {
 			return {
 				...state,
 				meetings: updatedMeetings,
+			};
+		case 'openPopup':
+			return {
+				...state,
+				isPopupOpen: !state.isPopupOpen,
 			};
 		default:
 			return state;

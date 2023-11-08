@@ -2,8 +2,10 @@ import React, { useReducer, useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import { useDispatch } from 'react-redux';
 
-import { saveMeetingAction } from './actions/calendar';
+import { saveMeetingAction, openPopupAction } from './actions/calendar';
 import { saveMeetingAPI } from './providers/meetingsApi';
+
+import '../style/form.scss';
 
 const CalendarFormHandler = ({ fields }) => {
 	const init = { date: '', email: '', firstName: '', lastName: '', time: '', isDone: false };
@@ -24,10 +26,12 @@ const CalendarFormHandler = ({ fields }) => {
 				return state;
 		}
 	}
-
+	const closePopup = () => {
+		dispatch(openPopupAction());
+	};
 	const handleSubmit = e => {
 		e.preventDefault();
-
+		console.log(`object`);
 		const validationErrors = validate(fields, state);
 		if (validationErrors.length === 0) {
 			const newMeetingWithId = { ...state, id: uuidv4() };
@@ -43,10 +47,10 @@ const CalendarFormHandler = ({ fields }) => {
 		state.forEach(({ name, validation }) => {
 			const value = values[name];
 			if (validation.isReq && value.trim() === '') {
-				errors.push(`pole ${name} jest wymagane.`);
+				errors.push(`field ${name} is required .`);
 			}
 			if (validation.regex && !validation.regex.test(value)) {
-				errors.push(`pole ${name} jest wypelnione nieprawidlowo.`);
+				errors.push(`field ${name} is not completed correctly.`);
 			}
 		});
 		setErrors(errors);
@@ -73,6 +77,7 @@ const CalendarFormHandler = ({ fields }) => {
 					<label className='form__label' htmlFor={name}>
 						{name}
 						<input
+							className='form__input'
 							placeholder={placeHolder}
 							onChange={e => dispatch({ type: 'change', key: name, value: e.target.value })}
 							type={type}
@@ -87,10 +92,13 @@ const CalendarFormHandler = ({ fields }) => {
 	};
 
 	return (
-		<form onSubmit={handleSubmit}>
+		<form className='form' onSubmit={handleSubmit}>
+			<h2 className='form__header'>schedule a meeting</h2>
 			{renderErros()}
-			{renderFieldList()}
-			<input type='submit' value='hejka tu lenka' />
+			<div className='form__inputs-div'> {renderFieldList()}</div>
+			<input className='form__submit' type='submit' value='submit' />
+			
+			<button className='form__cancel' type='button' onClick={closePopup}>x</button>
 		</form>
 	);
 };

@@ -5,7 +5,7 @@ import CalendarList from './CalendarList';
 import Navbar from './Navbar';
 import Organizer from './Organizer';
 
-import { loadMeetingsAction } from './actions/calendar';
+import { loadMeetingsAction} from './actions/calendar';
 import { loadMeetingsAPI } from './providers/meetingsApi';
 
 const Calendar = () => {

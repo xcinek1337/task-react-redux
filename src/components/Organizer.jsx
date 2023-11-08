@@ -1,18 +1,21 @@
 import React, { useState } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 
 import CalendarForm from './CalendarForm';
-
+import { openPopupAction } from './actions/calendar';
 import '../style/organizer.scss';
 
 const Organizer = () => {
+	const dispatch = useDispatch();
 	const [isOpen, setIsOpen] = useState(true);
-	const [popup, setPopup] = useState(false);
+	const popup = useSelector(state => state.isPopupOpen);
+
 	const handleClick = () => {
 		setIsOpen(!isOpen);
 		console.log(isOpen);
 	};
 	const togglePopup = () => {
-		setPopup(!popup);
+		dispatch(openPopupAction());
 	};
 
 	return (
@@ -35,7 +38,6 @@ const Organizer = () => {
 			{popup && (
 				<div className='organizer__popup'>
 					<CalendarForm />
-					<button onClick={() => setPopup(!popup)}>close</button>
 				</div>
 			)}
 		</header>

@@ -15,7 +15,6 @@ const saveMeetingAction = meet => {
 	};
 };
 const setDoneMeetingAction = (updatedData, meetingId) => {
-	console.log(updatedData);
 	return {
 		type: 'setFlagToTrue',
 		payload: {
@@ -25,4 +24,11 @@ const setDoneMeetingAction = (updatedData, meetingId) => {
 	};
 };
 
-export { loadMeetingsAction, saveMeetingAction, setDoneMeetingAction };
+const openPopupAction = () => {
+	return {
+		type: 'openPopup',
+		payload: {},
+	};
+};
+
+export { loadMeetingsAction, saveMeetingAction, setDoneMeetingAction, openPopupAction };

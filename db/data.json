@@ -9,15 +9,15 @@
       "isDone": false,
       "id": "d1f77fd8-e8a9-4ac0-9197-9691f73b209f"
     },
-	{
-		"date": "2022-01-01",
-		"email": "xcinek1337@wp.pl",
-		"firstName": "Marcelina",
-		"lastName": "chodkowecz",
-		"time": "10:00",
-		"isDone": false,
-		"id": "d1f77129-4ac0-9197-9691f73b209f"
-	  },
+    {
+      "date": "2022-01-01",
+      "email": "xcinek1337@wp.pl",
+      "firstName": "Marcelina",
+      "lastName": "chodkowecz",
+      "time": "10:00",
+      "isDone": false,
+      "id": "d1f77129-4ac0-9197-9691f73b209f"
+    },
     {
       "date": "2022-01-01",
       "email": "marcinchodkowski004@wp.pl",
@@ -42,17 +42,8 @@
       "firstName": "Natalia",
       "lastName": "Natan",
       "time": "10:00",
-      "isDone": false,
+      "isDone": true,
       "id": "7e136032-08bf-4b4b-9e62-d41a9a645e13"
-    },
-    {
-      "date": "2022-01-01",
-      "email": "marcinchodkowski004@wp.pl",
-      "firstName": "Pies",
-      "lastName": "Kot",
-      "time": "10:00",
-      "isDone": false,
-      "id": "18e9062e-51e0-400e-a914-0eeb000f6dcf"
     }
   ]
 }

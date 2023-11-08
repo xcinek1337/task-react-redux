@@ -1,0 +1,80 @@
+@import '.colors';
+
+.form {
+	position: relative;
+
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+
+	width: 400px;
+	height: 600px;
+	background-color: white;
+	border: 5px solid $primary-color;
+	border-radius: 45px;
+	&__header {
+		width: 100%;
+		text-align: center;
+		font-size: 30px;
+		position: absolute;
+		top: 10%;
+	}
+	&__error-list {
+		position: absolute;
+
+		font-size: 14px;
+		top: 18%;
+		left: 15%;
+	}
+	&__inputs-div {
+		position: absolute;
+
+		top: 40%;
+		left: 15%;
+	}
+	&__cancel {
+		position: absolute;
+
+		top: 4%;
+		right: 7%;
+		padding: 3px;
+		border: none;
+		background-color: transparent;
+		font-size: 20px;
+
+		cursor: pointer;
+	}
+	&__label {
+		font-size: 20px;
+		padding-top: 6px;
+		text-align: center;
+	}
+	&__input {
+		margin: 10px 0 10px 10px;
+		padding: 2px 0px;
+		width: 60%;
+		text-align: center;
+		border: 1px solid $primary-color;
+		border-radius: 5px;
+
+		&:focus {
+			outline: none;
+			border: 1px solid tomato !important;
+		}
+	}
+
+	&__submit {
+		position: absolute;
+		bottom: 10%;
+		left: 60%;
+		margin: 0 auto;
+		padding: 6px 12px;
+		font-size: 16px;
+		font-weight: 500;
+		background-color: transparent;
+		border-radius: 8px;
+		border: 2px solid $primary-color;
+
+		cursor: pointer;
+	}
+}
