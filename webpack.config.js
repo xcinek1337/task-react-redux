@@ -26,10 +26,23 @@ module.exports = {
 				// określam jaki [loader]
 				// ma być wykorzystany
 			},
-			// {
-			// 	test: /\.scss$/,
-			// 	use: ['style-loader', 'css-loader', 'postcss-loader', 'sass-loader'],
-			// },
+			{
+				test: /\.scss$/,
+				use: ['style-loader', 'css-loader', 'postcss-loader', 'sass-loader'],
+			},
+			{
+				test: /\.(png|jpg|gif|svg)$/,
+				use: [
+					{
+						loader: 'url-loader',
+						options: {
+							limit: 8192, // Przekształci małe obrazy (poniżej 8 KB) w dane URL
+							name: 'images/[name].[hash].[ext]', // Ustaw nazwę i ścieżkę do skopiowanych obrazów
+						},
+					},
+					'image-webpack-loader', // Optymalizacja obrazów
+				],
+			},
 		],
 		// obecnie brak dodatkowych ustawień
 	},

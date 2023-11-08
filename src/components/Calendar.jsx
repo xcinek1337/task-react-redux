@@ -2,8 +2,8 @@ import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
 import CalendarList from './CalendarList';
-import CalendarForm from './CalendarForm';
 import Navbar from './Navbar';
+import Organizer from './Organizer';
 
 import { loadMeetingsAction } from './actions/calendar';
 import { loadMeetingsAPI } from './providers/meetingsApi';
@@ -20,13 +20,10 @@ const Calendar = () => {
 
 	return (
 		<>
-		
 			<Navbar />
+			<Organizer />
 			{meetings === undefined ? <p>Oczekiwanie na dane...</p> : null}
-			<main>
-				<CalendarList />
-				<CalendarForm />
-			</main>
+			<CalendarList />
 		</>
 	);
 };
