@@ -24,11 +24,11 @@ const setDoneMeetingAction = (updatedData, meetingId) => {
 	};
 };
 
-const openPopupAction = () => {
+const togglePopupAction = () => {
 	return {
-		type: 'openPopup',
-		payload: {},
+		type: 'togglePopup',
+		
 	};
 };
 
-export { loadMeetingsAction, saveMeetingAction, setDoneMeetingAction, openPopupAction };
+export { loadMeetingsAction, saveMeetingAction, setDoneMeetingAction, togglePopupAction };

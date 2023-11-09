@@ -1,8 +1,8 @@
-import React, { useReducer, useState } from 'react';
+import React, { useReducer, useState, useRef, useEffect } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import { useDispatch } from 'react-redux';
 
-import { saveMeetingAction, openPopupAction } from './actions/calendar';
+import { saveMeetingAction, togglePopupAction } from './actions/calendar';
 import { saveMeetingAPI } from './providers/meetingsApi';
 
 import '../style/form.scss';
@@ -10,6 +10,7 @@ import '../style/form.scss';
 const CalendarFormHandler = ({ fields }) => {
 	const init = { date: '', email: '', firstName: '', lastName: '', time: '', isDone: false };
 
+	const formRef = useRef(null);
 	const reduxDispatch = useDispatch();
 	const [state, dispatch] = useReducer(reducer, init);
 	const [errors, setErrors] = useState([]);
@@ -27,7 +28,7 @@ const CalendarFormHandler = ({ fields }) => {
 		}
 	}
 	const closePopup = () => {
-		dispatch(openPopupAction());
+		reduxDispatch(togglePopupAction());
 	};
 	const handleSubmit = e => {
 		e.preventDefault();
@@ -91,14 +92,36 @@ const CalendarFormHandler = ({ fields }) => {
 		});
 	};
 
+	useEffect(() => {
+		const background = document.querySelector('.organizer__popup');
+
+		function handleKeyPress(event) {
+			if (event.key === 'Escape') {
+				closePopup();
+			} else if (event.key === 'Enter') {
+				handleSubmit();
+			}
+		}
+
+		background.addEventListener('click', closePopup, false);
+		document.addEventListener('keydown', handleKeyPress);
+
+		return () => {
+			background.removeEventListener('click', closePopup);
+			document.removeEventListener('keydown', handleKeyPress);
+		};
+	}, []);
+
 	return (
-		<form className='form' onSubmit={handleSubmit}>
+		<form className='form' onSubmit={handleSubmit} ref={formRef}>
 			<h2 className='form__header'>schedule a meeting</h2>
 			{renderErros()}
 			<div className='form__inputs-div'> {renderFieldList()}</div>
 			<input className='form__submit' type='submit' value='submit' />
-			
-			<button className='form__cancel' type='button' onClick={closePopup}>x</button>
+
+			<button className='form__cancel' type='button' onClick={closePopup}>
+				x
+			</button>
 		</form>
 	);
 };

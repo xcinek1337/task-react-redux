@@ -27,7 +27,7 @@ const reducer = (state = initalState, action) => {
 				...state,
 				meetings: updatedMeetings,
 			};
-		case 'openPopup':
+		case 'togglePopup':
 			return {
 				...state,
 				isPopupOpen: !state.isPopupOpen,

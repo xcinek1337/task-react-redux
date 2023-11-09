@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
 import CalendarForm from './CalendarForm';
-import { openPopupAction } from './actions/calendar';
+import { togglePopupAction } from './actions/calendar';
 import '../style/organizer.scss';
 
 const Organizer = () => {
@@ -15,7 +15,7 @@ const Organizer = () => {
 		console.log(isOpen);
 	};
 	const togglePopup = () => {
-		dispatch(openPopupAction());
+		dispatch(togglePopupAction());
 	};
 
 	return (
