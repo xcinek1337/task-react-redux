@@ -11,7 +11,7 @@ const CalendarForm = () => {
 		{ name: 'time', type: 'text', placeHolder: 'HH:MM', validation: { regex: /^[0-9]{2}:[0-9]{2}$/ , isReq: true } },	
 	]
 
-	return <CalendarFormHandler fields={fields} />
+	return <CalendarFormHandler  fields={fields} />
 };
 
 export default CalendarForm;

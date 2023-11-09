@@ -7,7 +7,7 @@ import { saveMeetingAPI } from './providers/meetingsApi';
 
 import '../style/form.scss';
 
-const CalendarFormHandler = ({ fields }) => {
+const CalendarFormHandler = ({ fields,  }) => {
 	const init = { date: '', email: '', firstName: '', lastName: '', time: '', isDone: false };
 
 	const formRef = useRef(null);
@@ -27,9 +27,7 @@ const CalendarFormHandler = ({ fields }) => {
 				return state;
 		}
 	}
-	const closePopup = () => {
-		reduxDispatch(togglePopupAction());
-	};
+
 	const handleSubmit = e => {
 		e.preventDefault();
 		console.log(`object`);
@@ -92,26 +90,6 @@ const CalendarFormHandler = ({ fields }) => {
 		});
 	};
 
-	useEffect(() => {
-		const background = document.querySelector('.organizer__popup');
-
-		function handleKeyPress(event) {
-			if (event.key === 'Escape') {
-				closePopup();
-			} else if (event.key === 'Enter') {
-				handleSubmit();
-			}
-		}
-
-		background.addEventListener('click', closePopup, false);
-		document.addEventListener('keydown', handleKeyPress);
-
-		return () => {
-			background.removeEventListener('click', closePopup);
-			document.removeEventListener('keydown', handleKeyPress);
-		};
-	}, []);
-
 	return (
 		<form className='form' onSubmit={handleSubmit} ref={formRef}>
 			<h2 className='form__header'>schedule a meeting</h2>
@@ -119,7 +97,7 @@ const CalendarFormHandler = ({ fields }) => {
 			<div className='form__inputs-div'> {renderFieldList()}</div>
 			<input className='form__submit' type='submit' value='submit' />
 
-			<button className='form__cancel' type='button' onClick={closePopup}>
+			<button className='form__cancel' type='button' onClick={() => reduxDispatch(togglePopupAction())}>
 				x
 			</button>
 		</form>

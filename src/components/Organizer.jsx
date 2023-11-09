@@ -17,6 +17,11 @@ const Organizer = () => {
 	const togglePopup = () => {
 		dispatch(togglePopupAction());
 	};
+	const closePopup = e => {
+		if(e.target === e.currentTarget){
+			togglePopup()
+		}
+	};
 
 	return (
 		<header className='organizer'>
@@ -36,8 +41,8 @@ const Organizer = () => {
 				</button>
 			</div>
 			{popup && (
-				<div className='organizer__popup'>
-					<CalendarForm />
+				<div onClick={e => closePopup(e)} className='organizer__popup'>
+					<CalendarForm  />
 				</div>
 			)}
 		</header>

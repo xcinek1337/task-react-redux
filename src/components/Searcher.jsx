@@ -1,15 +1,11 @@
 import React, { useState } from 'react';
 import '../style/searcher.scss';
 
-const Searcher = ({ onChange }) => {
-	const [inputValue, setInputValue] = useState('');
-
+const Searcher = ({ onChange, inputValue }) => {
 	const handleInputChange = event => {
 		const value = event.target.value;
-		setInputValue(value);
-		onChange(inputValue);
+		onChange(value);
 	};
-
 	return (
 		<div className='searcher'>
 			<input
