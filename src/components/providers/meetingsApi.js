@@ -1,13 +1,11 @@
 const apiUrl = 'http://localhost:3005/meetings';
 
+
+
 const loadMeetingsAPI = async () => {
 	try {
 		const resp = await fetch(apiUrl);
-		if (resp.ok) {
-			return await resp.json();
-		} else {
-			throw new Error('Network error!');
-		}
+		return await handlingResponse(resp);
 	} catch (err) {
 		console.error(err);
 	}
@@ -22,11 +20,7 @@ const saveMeetingAPI = async meet => {
 				'Content-Type': 'application/json',
 			},
 		});
-		if (resp.ok) {
-			return await resp.json();
-		} else {
-			throw new Error('Network error!');
-		}
+		return await handlingResponse(resp);
 	} catch (err) {
 		console.log(err);
 	}
@@ -37,11 +31,7 @@ const deleteMeetingAPI = async id => {
 		const resp = await fetch(`${apiUrl}/${id}`, {
 			method: 'DELETE',
 		});
-		if (resp.ok) {
-			return await resp.json();
-		} else {
-			throw new Error('Network error!');
-		}
+		return await handlingResponse(resp);
 	} catch (err) {
 		console.error(err);
 	}
@@ -56,14 +46,17 @@ const setDoneMeetingAPI = async (change, id) => {
 			},
 			body: JSON.stringify(change),
 		});
-		if (resp.ok) {
-			return resp.json();
-		} else {
-			throw new Error('Network error!');
-		}
+		return await handlingResponse(resp);
 	} catch (err) {
 		console.error(err);
 	}
 };
 
+async function handlingResponse(resp) {
+	if (resp.ok) {
+		return await resp.json();
+	} else {
+		throw new Error('Network error!');
+	}
+}
 export { loadMeetingsAPI, saveMeetingAPI, deleteMeetingAPI, setDoneMeetingAPI };

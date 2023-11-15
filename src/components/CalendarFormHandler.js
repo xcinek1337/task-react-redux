@@ -2,17 +2,18 @@ import React, { useReducer, useState, useRef, useEffect } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import { useDispatch } from 'react-redux';
 
+import validate from './validateForm';
 import { saveMeetingAction, togglePopupAction } from './actions/calendar';
 import { saveMeetingAPI } from './providers/meetingsApi';
 
 import '../style/form.scss';
 
-const CalendarFormHandler = ({ fields,  }) => {
+const CalendarFormHandler = ({ fields }) => {
 	const init = { date: '', email: '', firstName: '', lastName: '', time: '', isDone: false };
 
 	const formRef = useRef(null);
-	const reduxDispatch = useDispatch();
-	const [state, dispatch] = useReducer(reducer, init);
+	const dispatch = useDispatch();
+	const [state, dispatchState] = useReducer(reducer, init);
 	const [errors, setErrors] = useState([]);
 
 	function reducer(state, action) {
@@ -30,31 +31,19 @@ const CalendarFormHandler = ({ fields,  }) => {
 
 	const handleSubmit = e => {
 		e.preventDefault();
-		console.log(`object`);
+
 		const validationErrors = validate(fields, state);
+		setErrors(validationErrors);
+		
 		if (validationErrors.length === 0) {
 			const newMeetingWithId = { ...state, id: uuidv4() };
-			reduxDispatch(saveMeetingAction(newMeetingWithId));
+			dispatch(saveMeetingAction(newMeetingWithId));
 			saveMeetingAPI(newMeetingWithId);
-
-			dispatch({ type: 'init', data: init });
+			dispatch(togglePopupAction());
+			dispatchState({ type: 'init', data: init });
 		}
 	};
-	const validate = (state, values) => {
-		const errors = [];
 
-		state.forEach(({ name, validation }) => {
-			const value = values[name];
-			if (validation.isReq && value.trim() === '') {
-				errors.push(`field ${name} is required .`);
-			}
-			if (validation.regex && !validation.regex.test(value)) {
-				errors.push(`field ${name} is not completed correctly.`);
-			}
-		});
-		setErrors(errors);
-		return errors;
-	};
 	const renderErros = () => {
 		return (
 			<ul className='form__error-list'>
@@ -78,7 +67,7 @@ const CalendarFormHandler = ({ fields,  }) => {
 						<input
 							className='form__input'
 							placeholder={placeHolder}
-							onChange={e => dispatch({ type: 'change', key: name, value: e.target.value })}
+							onChange={e => dispatchState({ type: 'change', key: name, value: e.target.value })}
 							type={type}
 							name={name}
 							id={name}
@@ -97,7 +86,7 @@ const CalendarFormHandler = ({ fields,  }) => {
 			<div className='form__inputs-div'> {renderFieldList()}</div>
 			<input className='form__submit' type='submit' value='submit' />
 
-			<button className='form__cancel' type='button' onClick={() => reduxDispatch(togglePopupAction())}>
+			<button className='form__cancel' type='button' onClick={() => dispatch(togglePopupAction())}>
 				x
 			</button>
 		</form>

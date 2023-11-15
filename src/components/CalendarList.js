@@ -56,7 +56,7 @@ const CalendarList = () => {
 	};
 
 	const renderMeetings = () => {
-		if (inputValue.length > 2) {
+		if (inputValue.length > 0) {
 			const filteredMeetings = meetings.filter(meeting => {
 				const formattedValue = inputValue.trim().toLowerCase();
 				const firstName = meeting.firstName.toLowerCase();
