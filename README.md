@@ -52,7 +52,7 @@ To view the project locally, follow these steps:
     ```sh
     json-server --watch ./db/data.json --port 3005
     ```
-4. Start the development server:
+5. Start the development server:
     ```sh
     npm run start
     ```
